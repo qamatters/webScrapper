@@ -9,15 +9,15 @@ import yaml
 
 pages = yaml.safe_load(open(abspath('../../config/'+'config.yaml')))
 locators = yaml.safe_load(open(abspath('../../scripts/vocabulary.com/locators.yaml')))
-
 fileName = abspath('../../resources/' + constants.EXCELNAME)
-workbook = xlsxwriter.Workbook(fileName)
+
 res = requests.get(pages['URL1'])
 list = bs4.BeautifulSoup(res.text, "html.parser")
 words = list.select(locators['WORDS'])
 meanings = list.select(locators['MEANINGS'])
 examples = list.select(locators['DEFINITIONS'])
 
+workbook = xlsxwriter.Workbook(fileName)
 worksheet = excel.formatWorkSheet(workbook, constants.SHEETNAME)
 meaning_format = workbook.add_format()
 meaning_format.set_font_color('blue')
